@@ -1,36 +1,52 @@
 @import "tailwindcss";
 
-/* ── Design tokens ───────────────────────────────────────────────────── */
+/* ── Design tokens - Minimalist & Clean ──────────────────────────────── */
 :root {
-  --primary:        #165DFF;
-  --primary-hover:  #0E4BD9;
-  --primary-light:  #EBF1FF;
-  --foreground:     #0D1117;
-  --text-secondary: #5C6773;
-  --text-tertiary:  #9AA3AE;
-  --muted:          #F2F4F7;
-  --border:         #E4E7EC;
-  --border-hover:   #C2C9D4;
-  --surface:        #FFFFFF;
-  --surface-alt:    #F8F9FB;
-  --success:        #16A34A;
-  --success-light:  #DCFCE7;
-  --success-text:   #166534;
-  --error:          #DC2626;
-  --error-light:    #FEE2E2;
-  --error-text:     #991B1B;
-  --warning:        #D97706;
-  --warning-light:  #FEF3C7;
-  --warning-text:   #92400E;
-  --coffee:         #7C4A1E;
-  --radius-sm:      8px;
-  --radius-md:      12px;
-  --radius-lg:      16px;
-  --radius-xl:      20px;
-  --radius-2xl:     24px;
-  --shadow-sm:      0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:      0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
-  --shadow-lg:      0 8px 24px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.04);
+  /* Primary Colors */
+  --primary:        #8b7355;
+  --primary-hover:  #6f5746;
+  --primary-light:  #f3eee9;
+  
+  /* Text Colors */
+  --foreground:     #1a1a1a;
+  --text-secondary: #666666;
+  --text-tertiary:  #999999;
+  
+  /* Background & Surface */
+  --background:     #ffffff;
+  --muted:          #f8f7f5;
+  --surface:        #ffffff;
+  --surface-alt:    #f8f7f5;
+  
+  /* Borders */
+  --border:         #e5e5e5;
+  --border-hover:   #d0d0d0;
+  
+  /* Status Colors */
+  --success:        #2ecc71;
+  --success-light:  #d4f5e5;
+  --success-text:   #1e7e4f;
+  --error:          #e74c3c;
+  --error-light:    #fadbd8;
+  --error-text:     #a93226;
+  --warning:        #f39c12;
+  --warning-light:  #fce5d0;
+  --warning-text:   #9a5a0a;
+  
+  /* Brand */
+  --coffee:         #8b7355;
+  
+  /* Spacing & Sizing */
+  --radius-sm:      6px;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+  --radius-xl:      16px;
+  --radius-2xl:     20px;
+  
+  /* Shadows - Minimal, elegant */
+  --shadow-sm:      0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:      0 2px 8px rgba(0,0,0,.08);
+  --shadow-lg:      0 4px 16px rgba(0,0,0,.10);
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
@@ -38,11 +54,18 @@ html, body { height: 100%; -webkit-font-smoothing: antialiased; }
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
-  font-family: 'Lexend Deca', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
   font-size: 14px;
   line-height: 1.6;
   color: var(--foreground);
-  background: var(--muted);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────────── */
@@ -78,44 +101,55 @@ body {
 
 /* ── Button base ────────────────────────────────────────────────────────── */
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 10px 20px; border-radius: 100px;
-  background: var(--primary); color: #fff;
-  font-size: 13px; font-weight: 600; letter-spacing: .01em;
-  cursor: pointer; transition: background .15s, transform .1s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 24px; border-radius: var(--radius-lg);
+  background: var(--primary); color: #ffffff;
+  font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+  cursor: pointer; transition: background .2s, transform .1s;
   border: none; outline: none;
 }
-.btn-primary:hover  { background: var(--primary-hover); }
-.btn-primary:active { transform: scale(.97); }
-.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary:hover  { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-primary:active { transform: scale(.98); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 24px; border-radius: var(--radius-lg);
+  background: var(--surface-alt); color: var(--foreground);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border);
+  transition: border-color .2s, background .2s;
+}
+.btn-secondary:hover { border-color: var(--primary); background: var(--primary-light); }
 
 .btn-ghost {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 18px; border-radius: 100px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 18px; border-radius: var(--radius-lg);
   background: transparent; color: var(--foreground);
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 500;
   cursor: pointer; border: 1px solid var(--border);
-  transition: border-color .15s, background .15s;
+  transition: border-color .2s, background .2s, color .2s;
 }
 .btn-ghost:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
 
 /* ── Form inputs ────────────────────────────────────────────────────────── */
 .input {
   width: 100%; border: 1px solid var(--border); border-radius: var(--radius-md);
-  padding: 10px 14px; font-size: 13px; font-family: inherit;
-  outline: none; transition: border-color .15s, box-shadow .15s;
+  padding: 11px 14px; font-size: 14px; font-family: inherit;
+  outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
   background: var(--surface); color: var(--foreground);
 }
-.input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(22,93,255,.12); }
+.input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139,115,85,.10); background: #fafaf8; }
 .input::placeholder { color: var(--text-tertiary); }
+.input:disabled { background: var(--surface-alt); opacity: .6; cursor: not-allowed; }
 
 /* ── Badge variants ──────────────────────────────────────────────────────── */
-.badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
-.badge-blue    { background: var(--primary-light);   color: var(--primary); }
+.badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; letter-spacing: -0.01em; }
+.badge-primary { background: var(--primary-light);   color: var(--primary); }
 .badge-green   { background: var(--success-light);   color: var(--success-text); }
 .badge-red     { background: var(--error-light);     color: var(--error-text); }
 .badge-yellow  { background: var(--warning-light);   color: var(--warning-text); }
-.badge-gray    { background: var(--muted);            color: var(--text-secondary); }
+.badge-gray    { background: var(--muted);           color: var(--text-secondary); }
 
 /* ── Table ───────────────────────────────────────────────────────────────── */
 .table-row { transition: background .1s; }
