@@ -3,29 +3,26 @@ import { SWRProvider } from '@/components/SWRProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'BrewStock — Coffee Management',
-  description: 'Sistem manajemen kedai kopi — offline-first, sync otomatis',
+  title: 'BrewStock — Modern Coffee Management',
+  description: 'Sistem manajemen kedai kopi modern dengan menu interaktif QR, manajemen inventori, dan integrasi pembayaran',
   manifest: '/manifest.json',
-  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'BrewStock' },
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'BrewStock' },
   formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#165DFF',
+  themeColor: '#8b7355',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
+    <html lang="id" className="bg-background">
       <head>
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="apple-touch-icon" href="/icons/icon-192.png"/>
       </head>
       <body>

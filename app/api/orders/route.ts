@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   await initDb();
-  const { cashier_id, items, subtotal, discount, tax, total, payment_method, amount_paid, change_amount, notes } = await req.json();
+  const { cashier_id, items, subtotal, discount, tax, total, payment_method, amount_paid, change_amount, notes, table_no, source } = await req.json();
   if (!items || items.length === 0) return NextResponse.json({ error: 'Tidak ada item' }, { status: 400 });
 
   const now = new Date();
@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
     order_no, cashier_id: cashier_id || null, subtotal, discount: discount||0,
     tax: tax||0, total, payment_method: payment_method||'cash',
     amount_paid, change_amount: change_amount||0, notes: notes||'',
+    table_no: table_no||'', source: source||'qr',
   }).returning();
 
   await db.insert(orderItems).values(

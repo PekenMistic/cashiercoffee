@@ -69,14 +69,20 @@ export const shifts = table('shifts', {
 });
 
 export const menuItems = table('menu_items', {
-  id:           integer('id').primaryKey({ autoIncrement: true }),
-  name:         text('name').notNull(),
-  category:     text('category').notNull(),
-  price:        real('price').notNull(),
-  cost:         real('cost').notNull().default(0),
-  image_emoji:  text('image_emoji').notNull().default('☕'),
-  is_available: integer('is_available', { mode: 'boolean' }).notNull().default(true),
-  description:  text('description').notNull().default(''),
+  id:              integer('id').primaryKey({ autoIncrement: true }),
+  name:            text('name').notNull(),
+  category:        text('category').notNull(),
+  price:           real('price').notNull(),
+  cost:            real('cost').notNull().default(0),
+  image_emoji:     text('image_emoji').notNull().default('☕'),
+  image_url:       text('image_url').notNull().default(''),
+  is_available:    integer('is_available', { mode: 'boolean' }).notNull().default(true),
+  description:     text('description').notNull().default(''),
+  dietary_tags:    text('dietary_tags').notNull().default(''), // JSON array: vegan, vegetarian, gluten-free, etc
+  is_recommended:  integer('is_recommended', { mode: 'boolean' }).notNull().default(false),
+  stock_quantity:  real('stock_quantity').notNull().default(-1), // -1 = unlimited
+  reorder_level:   real('reorder_level').notNull().default(0),
+  customizations:  text('customizations').notNull().default(''), // JSON: [{id, name, type, options: [{name, price}]}]
 });
 
 export const orders = table('orders', {
