@@ -71,47 +71,48 @@ export function ItemDetailsModal({ item, onClose, onAddToCart }: ItemDetailsModa
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center sm:justify-center p-4">
       <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl max-h-[90vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom">
-        {/* Header with Close */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[var(--border)]">
-          <h2 className="text-lg font-bold text-[var(--foreground)]">Detail Menu</h2>
+        {/* Header */}
+        <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[var(--border)] bg-[var(--surface-alt)]">
+          <h2 className="text-lg font-bold text-[var(--foreground)]">Detail Item</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[var(--surface-alt)] rounded-lg transition-colors"
+            className="p-2 hover:bg-white rounded-lg transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-[var(--text-secondary)]" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-          {/* Item Info */}
-          <div className="text-center">
-            <div className="text-7xl mb-4">{item.image_emoji}</div>
-            <h3 className="text-2xl font-bold text-[var(--foreground)]">{item.name}</h3>
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+          {/* Item Showcase */}
+          <div className="text-center bg-[var(--surface-alt)] p-8 rounded-2xl">
+            <div className="text-8xl mb-5 inline-block">{item.image_emoji}</div>
+            <h3 className="text-3xl font-bold text-[var(--foreground)] mb-3">{item.name}</h3>
             {item.description && (
-              <p className="text-sm text-[var(--text-secondary)] mt-2">{item.description}</p>
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{item.description}</p>
             )}
             {item.is_recommended && (
-              <div className="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-[var(--primary-light)] text-[var(--primary)] rounded-full text-xs font-bold">
-                <Star className="w-3 h-3" />
-                Favorit
+              <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[var(--primary)] text-white rounded-full text-xs font-bold shadow-md">
+                <Star className="w-4 h-4" />
+                Pilihan Populer
               </div>
             )}
           </div>
 
           {/* Size Selection */}
-          <div>
-            <h4 className="font-semibold text-[var(--foreground)] mb-3">Ukuran</h4>
-            <div className="grid grid-cols-3 gap-2">
+          <div className="bg-white p-5 rounded-xl border-2 border-[var(--border)]">
+            <h4 className="font-bold text-[var(--foreground)] mb-4 text-sm uppercase tracking-wider">Pilih Ukuran</h4>
+            <div className="grid grid-cols-3 gap-3">
               {SIZES.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`py-3 rounded-lg font-medium text-sm transition-all ${
+                  className={`py-3 rounded-xl font-bold text-sm transition-all border-2 ${
                     selectedSize === size
-                      ? 'bg-[var(--primary)] text-white'
-                      : 'bg-[var(--surface-alt)] border border-[var(--border)] text-[var(--foreground)]'
+                      ? 'text-white shadow-md'
+                      : 'border-[var(--border)] text-[var(--foreground)] hover:border-[var(--primary)]'
                   }`}
+                  style={selectedSize === size ? { background: 'var(--primary)', borderColor: 'var(--primary)' } : {}}
                 >
                   {size}
                 </button>
@@ -120,18 +121,19 @@ export function ItemDetailsModal({ item, onClose, onAddToCart }: ItemDetailsModa
           </div>
 
           {/* Temperature Selection */}
-          <div>
-            <h4 className="font-semibold text-[var(--foreground)] mb-3">Suhu</h4>
-            <div className="grid grid-cols-4 gap-2">
+          <div className="bg-white p-5 rounded-xl border-2 border-[var(--border)]">
+            <h4 className="font-bold text-[var(--foreground)] mb-4 text-sm uppercase tracking-wider">Pilih Suhu</h4>
+            <div className="grid grid-cols-2 gap-3">
               {TEMPERATURE_OPTIONS.map((temp) => (
                 <button
                   key={temp}
                   onClick={() => setSelectedTemp(temp)}
-                  className={`py-2 rounded-lg font-medium text-xs transition-all ${
+                  className={`py-3 rounded-xl font-bold text-sm transition-all border-2 ${
                     selectedTemp === temp
-                      ? 'bg-[var(--primary)] text-white'
-                      : 'bg-[var(--surface-alt)] border border-[var(--border)] text-[var(--foreground)]'
+                      ? 'text-white shadow-md'
+                      : 'border-[var(--border)] text-[var(--foreground)] hover:border-[var(--primary)]'
                   }`}
+                  style={selectedTemp === temp ? { background: 'var(--primary)', borderColor: 'var(--primary)' } : {}}
                 >
                   {temp}
                 </button>
@@ -140,38 +142,42 @@ export function ItemDetailsModal({ item, onClose, onAddToCart }: ItemDetailsModa
           </div>
 
           {/* Toppings */}
-          <div>
-            <h4 className="font-semibold text-[var(--foreground)] mb-3">Topping Tambahan</h4>
-            <div className="space-y-2">
+          <div className="bg-white p-5 rounded-xl border-2 border-[var(--border)]">
+            <h4 className="font-bold text-[var(--foreground)] mb-4 text-sm uppercase tracking-wider">Topping Tambahan</h4>
+            <div className="space-y-2.5">
               {TOPPINGS.map((topping) => (
                 <label
                   key={topping.name}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-[var(--border)] cursor-pointer hover:bg-[var(--surface-alt)] transition-colors"
+                  className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all border-2 ${
+                    selectedToppings.includes(topping.name)
+                      ? 'border-[var(--primary)] bg-[var(--primary-light)]'
+                      : 'border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--surface-alt)]'
+                  }`}
                 >
                   <input
                     type="checkbox"
                     checked={selectedToppings.includes(topping.name)}
                     onChange={() => handleToggleTopping(topping.name)}
-                    className="w-4 h-4 rounded accent-[var(--primary)]"
+                    className="w-5 h-5 rounded accent-[var(--primary)] cursor-pointer"
                   />
                   <div className="flex-1">
-                    <p className="font-medium text-sm text-[var(--foreground)]">{topping.name}</p>
+                    <p className="font-semibold text-sm text-[var(--foreground)]">{topping.name}</p>
                   </div>
-                  <p className="text-xs font-bold text-[var(--primary)]">+{fmt(topping.price)}</p>
+                  <p className="text-sm font-bold text-[var(--primary)] flex-shrink-0">+{fmt(topping.price)}</p>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Special Instructions */}
-          <div>
-            <h4 className="font-semibold text-[var(--foreground)] mb-3">Catatan Khusus</h4>
+          <div className="bg-white p-5 rounded-xl border-2 border-[var(--border)]">
+            <h4 className="font-bold text-[var(--foreground)] mb-3 text-sm uppercase tracking-wider">Catatan Khusus</h4>
             <textarea
               value={specialInstructions}
               onChange={(e) => setSpecialInstructions(e.target.value)}
-              placeholder="Misalnya: Kurangi gula, lebih banyak Es..."
-              className="w-full p-3 border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary-light)]"
-              rows={3}
+              placeholder="Contoh: Kurangi gula, lebih banyak es, tanpa sirup..."
+              className="w-full p-4 border-2 border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-light)] transition-all resize-none"
+              rows={2}
             />
           </div>
 
@@ -185,49 +191,55 @@ export function ItemDetailsModal({ item, onClose, onAddToCart }: ItemDetailsModa
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[var(--border)] p-4 sm:p-6 bg-white space-y-3">
-          {/* Quantity Selector */}
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => setQty(Math.max(1, qty - 1))}
-              className="p-2 rounded-lg bg-[var(--surface-alt)] border border-[var(--border)] text-[var(--text-secondary)]"
-            >
-              <Minus className="w-4 h-4" />
-            </button>
-            <span className="flex-1 text-center font-bold text-lg text-[var(--foreground)]">
-              {qty}
-            </span>
-            <button
-              onClick={() => setQty(qty + 1)}
-              className="p-2 rounded-lg bg-[var(--primary)] text-white"
-            >
-              <Plus className="w-4 h-4" />
-            </button>
+        <div className="border-t border-[var(--border)] p-5 sm:p-6 bg-[var(--surface-alt)] space-y-4">
+          {/* Quantity & Price Section */}
+          <div className="flex items-center justify-between gap-4 bg-white p-4 rounded-xl border-2 border-[var(--border)]">
+            {/* Quantity */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setQty(Math.max(1, qty - 1))}
+                className="p-2.5 rounded-lg bg-white border-2 border-[var(--border)] text-[var(--primary)] hover:bg-[var(--surface-alt)] transition-all"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+              <span className="font-bold text-lg text-[var(--foreground)] w-8 text-center">
+                {qty}
+              </span>
+              <button
+                onClick={() => setQty(qty + 1)}
+                className="p-2.5 rounded-lg text-white transition-all hover:opacity-95"
+                style={{ background: 'var(--primary)' }}
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Total Price */}
+            <div className="text-right">
+              <p className="text-xs uppercase tracking-wider text-[var(--text-secondary)] font-bold">Total</p>
+              <p className="text-2xl font-bold" style={{ color: 'var(--primary)' }}>
+                {fmt(totalPrice)}
+              </p>
+            </div>
           </div>
 
-          {/* Price */}
-          <div className="text-right mb-4">
-            <p className="text-xs text-[var(--text-secondary)]">Total Harga</p>
-            <p className="text-2xl font-bold" style={{ color: 'var(--primary)' }}>
-              {fmt(totalPrice)}
-            </p>
+          {/* Action Buttons */}
+          <div className="space-y-2.5">
+            <button
+              onClick={handleAddToCart}
+              disabled={isOutOfStock}
+              className="w-full py-3.5 rounded-xl font-bold text-white transition-all hover:opacity-95 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ background: 'var(--primary)' }}
+            >
+              {isOutOfStock ? 'Stok Habis' : 'Tambah ke Pesanan'}
+            </button>
+            <button
+              onClick={onClose}
+              className="w-full py-3.5 rounded-xl font-bold border-2 border-[var(--border)] text-[var(--foreground)] hover:bg-white hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all"
+            >
+              Batal
+            </button>
           </div>
-
-          {/* Add to Cart Button */}
-          <button
-            onClick={handleAddToCart}
-            disabled={isOutOfStock}
-            className="w-full py-3 rounded-lg font-semibold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ background: 'var(--primary)' }}
-          >
-            Tambah ke Pesanan
-          </button>
-          <button
-            onClick={onClose}
-            className="w-full py-3 rounded-lg font-semibold border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--surface-alt)] transition-all"
-          >
-            Batal
-          </button>
         </div>
       </div>
     </div>

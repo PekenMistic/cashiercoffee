@@ -86,44 +86,46 @@ export function CheckoutModal({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-          {/* Order Summary */}
-          <div>
-            <h3 className="font-semibold text-[var(--foreground)] mb-3">Ringkasan Pesanan</h3>
-            <div className="space-y-2 bg-[var(--surface-alt)] p-4 rounded-lg max-h-40 overflow-y-auto">
+          {/* Order Summary Section */}
+          <div className="bg-[var(--surface-alt)] rounded-xl p-4 sm:p-5">
+            <h3 className="font-bold text-[var(--foreground)] mb-4 text-sm uppercase tracking-wider">Ringkasan Pesanan</h3>
+            <div className="space-y-2.5 max-h-40 overflow-y-auto">
               {items.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
-                  <span className="text-[var(--text-secondary)]">
-                    {item.emoji} {item.name} x{item.qty}
+                <div key={item.id} className="flex items-center justify-between text-sm py-1">
+                  <span className="text-[var(--text-secondary)] flex items-center gap-2">
+                    <span className="text-xl">{item.emoji}</span>
+                    <span className="flex-1">{item.name}</span>
+                    <span className="font-medium text-xs bg-white px-2 py-1 rounded">x{item.qty}</span>
                   </span>
-                  <span className="font-medium text-[var(--foreground)]">
-                    {fmt(item.price * item.qty)}
-                  </span>
+                  <span className="font-semibold text-[var(--foreground)] ml-2">{fmt(item.price * item.qty)}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Total */}
-          <div className="space-y-2 py-4 border-t-2 border-b-2 border-[var(--border)]">
-            <div className="flex justify-between text-sm text-[var(--text-secondary)]">
-              <span>Total</span>
-              <span className="font-bold text-lg text-[var(--primary)]">{fmt(total)}</span>
+          {/* Total Highlight */}
+          <div className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--surface-alt)] rounded-xl p-5 border border-[var(--border)]">
+            <div className="flex justify-between items-baseline">
+              <span className="text-sm font-semibold text-[var(--text-secondary)]">Total Pembayaran</span>
+              <span className="text-3xl font-bold" style={{ color: 'var(--primary)' }}>
+                {fmt(total)}
+              </span>
             </div>
           </div>
 
           {/* Payment Method Selection */}
           <div>
-            <h3 className="font-semibold text-[var(--foreground)] mb-3">Metode Pembayaran</h3>
-            <div className="space-y-2">
+            <h3 className="font-bold text-[var(--foreground)] mb-4 text-sm uppercase tracking-wider">Pilih Metode Pembayaran</h3>
+            <div className="space-y-3">
               {PAYMENT_METHODS.map((method) => {
                 const Icon = method.icon;
                 return (
                   <label
                     key={method.id}
-                    className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                    className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       selectedPayment === method.id
-                        ? 'border-[var(--primary)] bg-[var(--primary-light)]'
-                        : 'border-[var(--border)] hover:border-[var(--primary)]'
+                        ? 'border-[var(--primary)] bg-[var(--primary-light)] shadow-md'
+                        : 'border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--surface-alt)]'
                     }`}
                   >
                     <input
@@ -132,13 +134,13 @@ export function CheckoutModal({
                       value={method.id}
                       checked={selectedPayment === method.id}
                       onChange={(e) => setSelectedPayment(e.target.value)}
-                      className="w-4 h-4 accent-[var(--primary)]"
+                      className="w-5 h-5 accent-[var(--primary)] cursor-pointer"
                     />
                     <div className="flex-1">
-                      <p className="font-medium text-[var(--foreground)]">{method.name}</p>
-                      <p className="text-xs text-[var(--text-secondary)]">{method.desc}</p>
+                      <p className="font-bold text-[var(--foreground)] text-sm">{method.name}</p>
+                      <p className="text-xs text-[var(--text-secondary)] mt-0.5">{method.desc}</p>
                     </div>
-                    <Icon className="w-5 h-5 text-[var(--text-secondary)]" />
+                    <Icon className="w-6 h-6 text-[var(--primary)] flex-shrink-0" />
                   </label>
                 );
               })}
@@ -147,32 +149,35 @@ export function CheckoutModal({
 
           {/* Special Notes */}
           <div>
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">Catatan untuk Staff</h3>
+            <h3 className="font-bold text-[var(--foreground)] mb-3 text-sm uppercase tracking-wider">Catatan Khusus</h3>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Misalnya: Prioritas rendah, pesanan untuk later..."
-              className="w-full p-3 border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary-light)]"
+              placeholder="Misal: Gula sedikit, pedas, no ice..."
+              className="w-full p-4 border-2 border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-light)] transition-all"
               rows={2}
               disabled={isLoading}
             />
           </div>
 
-          {/* Terms */}
-          <div className="flex gap-2 p-3 bg-blue-50 rounded-lg">
+          {/* Info Banner */}
+          <div className="flex gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl">
             <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-blue-700">
-              Pesanan akan siap dalam 10-15 menit. Staff akan memberi tahu saat siap.
-            </p>
+            <div>
+              <p className="text-sm font-semibold text-blue-900 mb-1">Estimasi Waktu</p>
+              <p className="text-xs text-blue-700">
+                Pesanan siap dalam 10-15 menit. Kami akan notifikasi saat pesanan selesai.
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="border-t border-[var(--border)] p-4 sm:p-6 bg-white space-y-3">
+        <div className="border-t border-[var(--border)] p-4 sm:p-6 bg-white space-y-2.5">
           <button
             onClick={handleConfirm}
             disabled={isLoading}
-            className="w-full py-3 rounded-lg font-semibold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3.5 rounded-xl font-bold text-white transition-all hover:opacity-95 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ background: 'var(--primary)' }}
           >
             {isLoading ? 'Memproses...' : 'Konfirmasi & Pesan'}
@@ -180,7 +185,7 @@ export function CheckoutModal({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="w-full py-3 rounded-lg font-semibold border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--surface-alt)] transition-all disabled:opacity-50"
+            className="w-full py-3.5 rounded-xl font-bold border-2 border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--surface-alt)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all disabled:opacity-50"
           >
             Kembali
           </button>

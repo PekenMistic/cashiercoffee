@@ -17,21 +17,22 @@ const CATEGORY_ICONS: Record<string, string> = {
 
 export function FilterBar({ categories, activeCategory, onCategoryChange }: FilterBarProps) {
   return (
-    <div className="sticky top-[120px] sm:top-[140px] z-20 bg-white border-b border-[var(--border)]">
-      <div className="max-w-2xl mx-auto px-4 py-3">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+    <div className="sticky top-[120px] sm:top-[140px] z-20 bg-white border-b border-[var(--border)] shadow-sm">
+      <div className="px-4 sm:px-6 py-4">
+        <div className="flex gap-2.5 overflow-x-auto scrollbar-hide">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => onCategoryChange(category)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all font-medium text-sm ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl whitespace-nowrap transition-all font-bold text-sm flex-shrink-0 ${
                 activeCategory === category
-                  ? 'bg-[var(--primary)] text-white shadow-md'
-                  : 'bg-[var(--surface-alt)] text-[var(--foreground)] border border-[var(--border)] hover:border-[var(--primary)]'
+                  ? 'text-white shadow-md'
+                  : 'bg-white border-2 border-[var(--border)] text-[var(--foreground)] hover:border-[var(--primary)] hover:text-[var(--primary)]'
               }`}
+              style={activeCategory === category ? { background: 'var(--primary)' } : {}}
             >
               <span className="text-lg">{CATEGORY_ICONS[category] || '🍽️'}</span>
-              <span>{category}</span>
+              <span className="hidden sm:inline">{category}</span>
             </button>
           ))}
         </div>

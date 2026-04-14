@@ -141,35 +141,46 @@ export function CartPanel({
           ))}
         </div>
 
-        {/* Summary */}
-        <div className="border-t border-[var(--border)] p-4 sm:p-6 space-y-3 bg-white">
-          <div className="flex justify-between text-sm text-[var(--text-secondary)]">
-            <span>Subtotal</span>
-            <span>{fmt(subtotal)}</span>
-          </div>
-          <div className="flex justify-between text-sm text-[var(--text-secondary)]">
-            <span>Pajak (10%)</span>
-            <span>{fmt(tax)}</span>
-          </div>
-          <div className="flex justify-between text-lg font-bold text-[var(--foreground)] pt-3 border-t border-[var(--border)]">
-            <span>Total</span>
-            <span style={{ color: 'var(--primary)' }}>{fmt(total)}</span>
+        {/* Summary Section */}
+        <div className="border-t border-[var(--border)] bg-white">
+          <div className="p-4 sm:p-6 space-y-4">
+            {/* Breakdown */}
+            <div className="space-y-3 pb-4 border-b border-[var(--border)]">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-[var(--text-secondary)]">Subtotal</span>
+                <span className="font-medium text-[var(--foreground)]">{fmt(subtotal)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-[var(--text-secondary)]">Pajak (10%)</span>
+                <span className="font-medium text-[var(--foreground)]">{fmt(tax)}</span>
+              </div>
+            </div>
+
+            {/* Total - Prominent */}
+            <div className="flex justify-between items-center py-2">
+              <span className="text-lg font-bold text-[var(--foreground)]">Total</span>
+              <span className="text-2xl font-bold" style={{ color: 'var(--primary)' }}>
+                {fmt(total)}
+              </span>
+            </div>
           </div>
 
-          {/* Checkout Button */}
-          <button
-            onClick={onCheckout}
-            className="w-full py-3 rounded-lg font-semibold text-white transition-all mt-4"
-            style={{ background: 'var(--primary)' }}
-          >
-            Lanjut Bayar
-          </button>
-          <button
-            onClick={onClose}
-            className="w-full py-3 rounded-lg font-semibold border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--surface-alt)] transition-all"
-          >
-            Lanjut Belanja
-          </button>
+          {/* Action Buttons - Full Width */}
+          <div className="p-4 sm:p-6 space-y-2 border-t border-[var(--border)] bg-[var(--surface-alt)]">
+            <button
+              onClick={onCheckout}
+              className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-95 active:scale-95"
+              style={{ background: 'var(--primary)' }}
+            >
+              Lanjut Bayar
+            </button>
+            <button
+              onClick={onClose}
+              className="w-full py-3 rounded-xl font-semibold border-2 border-[var(--border)] text-[var(--foreground)] hover:bg-white hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all"
+            >
+              Lanjut Belanja
+            </button>
+          </div>
         </div>
       </div>
     </div>

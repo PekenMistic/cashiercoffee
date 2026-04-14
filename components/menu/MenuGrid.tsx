@@ -39,21 +39,23 @@ export function MenuGrid({
 }: MenuGridProps) {
   if (items.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-5xl mb-4">🔍</div>
-        <p className="text-lg text-[var(--text-secondary)] font-medium">
-          Tidak ada menu yang ditemukan
-        </p>
-        <p className="text-sm text-[var(--text-tertiary)] mt-2">
-          Coba ubah filter atau pencarian Anda
-        </p>
+      <div className="flex items-center justify-center min-h-64 px-4">
+        <div className="text-center max-w-md">
+          <div className="text-6xl mb-5 opacity-30">🔍</div>
+          <p className="text-lg font-bold text-[var(--foreground)] mb-2">
+            Tidak ada menu yang ditemukan
+          </p>
+          <p className="text-sm text-[var(--text-secondary)]">
+            Coba ubah filter, kategori, atau kata kunci pencarian Anda
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
-      <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6">
+    <div className="w-full px-4 sm:px-6 py-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
         {items.map((item) => {
           const inCart = cart.find((c) => c.id === item.id);
           return (
